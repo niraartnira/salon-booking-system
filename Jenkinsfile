@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    
+    environment {
+        COMPOSE_PROJECT_NAME = 'salon-booking-system'
+    }
+
 
     stages {
 
