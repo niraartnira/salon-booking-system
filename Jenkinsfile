@@ -27,6 +27,22 @@ pipeline {
             }
         }
 
+        stage('Push Docker Image') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-credentials',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+            sh '''
+                echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                docker tag app:latest niraartnira/salon-booking-app:latest
+                docker push niraartnira/salon-booking-app:latest
+            '''
+        }
+    }
+}
+
         stage('Deploy Application') {
             steps {
                 sh 'docker compose up -d'
