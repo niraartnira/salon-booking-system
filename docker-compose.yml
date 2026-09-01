@@ -12,6 +12,13 @@ services:
     image: app:latest
     volumes:
       - .:/app
+    environment:
+      SECRET_KEY: django-dev-secret-key
+      DB_NAME: vivre_local
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
     ports:
       - 8000:8000
 
